@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "160418104508",
+    "firebase_url": "https://awkward-store-42f8b.firebaseio.com",
+    "project_id": "awkward-store-42f8b",
+    "storage_bucket": "awkward-store-42f8b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:160418104508:android:f2259e6d7179584f",
+        "android_client_info": {
+          "package_name": "com.za.awkwardstore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "160418104508-u6dfi5rlt5b3ellg3ca5a01iu3ff11b9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.za.awkwardstore",
+            "certificate_hash": "1394ea13527b8b4838b7aeafb25c064cff0ae7e3"
+          }
+        },
+        {
+          "client_id": "160418104508-3n5qgrqsmpib4q51oef3vuqllrnkmi6g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGnJwR_b1Tk9JiFKXcaL8iRE8gWXsvLEg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "160418104508-3n5qgrqsmpib4q51oef3vuqllrnkmi6g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

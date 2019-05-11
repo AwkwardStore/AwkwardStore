@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Awkward.Store</string>
+    <string name="title_home">Home</string>
+    <string name="title_transaksi">Transaksi</string>
+</resources>
