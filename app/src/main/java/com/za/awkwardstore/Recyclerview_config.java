@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-import com.za.awkwardstore.Fragments.HomeFragment;
 
 import java.util.List;
 
@@ -25,12 +24,13 @@ public class Recyclerview_config
 
     private OnItemClickListener mListener;
 
-    public void setConfig(RecyclerView recyclerView, Context context, List<Produk> produks, List<String> keys)
+    public void setConfig(RecyclerView recyclerView, Context context, List<Produk> produks, List<String> keys, OnItemClickListener listener)
     {
         mContext = context;
         mProdukAdapter = new ProduksAdapter(produks, keys);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(mProdukAdapter);
+        mListener = listener;
     }
 
     class ProdukItemView extends RecyclerView.ViewHolder implements View.OnClickListener,
@@ -49,16 +49,7 @@ public class Recyclerview_config
             nameText = (TextView)itemView.findViewById(R.id.txt_name);
             stokText = (TextView)itemView.findViewById(R.id.txt_stok);
             imageView = itemView.findViewById(R.id.imageView);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(mContext,NewDetailProdukActivity.class);
-                    i.putExtra("key",key);
-                    i.putExtra("name",nameText.getText());
-                    i.putExtra("stok",stokText.getText());
-                    mContext.startActivity(i);
-                }
-            });
+
             itemView.setOnClickListener(this);
             itemView.setOnCreateContextMenuListener(this);
         }
@@ -70,6 +61,11 @@ public class Recyclerview_config
                 int position = getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION)
                 {
+                    Intent i = new Intent(mContext,NewDetailProdukActivity.class);
+                    i.putExtra("key",key);
+                    i.putExtra("name",nameText.getText());
+                    i.putExtra("stok",stokText.getText());
+                    mContext.startActivity(i);
                     mListener.onItemClick(position);
                 }
             }
@@ -78,8 +74,8 @@ public class Recyclerview_config
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             menu.setHeaderTitle("Select Action");
-            MenuItem doUpdate = menu.add(menu.NONE, 1, 1, "Do Whatever");
-            MenuItem delete = menu.add(menu.NONE, 1, 1, "Delete");
+            MenuItem doUpdate = menu.add(menu.NONE, 1, 1, "Do Update");
+            MenuItem delete = menu.add(menu.NONE, 2, 2, "Delete");
 
             doUpdate.setOnMenuItemClickListener(this);
             delete.setOnMenuItemClickListener(this);
@@ -150,10 +146,5 @@ public class Recyclerview_config
         void onUpdateClick (int positiom);
 
         void onDeleteClick (int position);
-    }
-
-    public void setOnItemClickListener (OnItemClickListener listener)
-    {
-        mListener = listener;
     }
 }

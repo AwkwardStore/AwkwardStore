@@ -8,12 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.za.awkwardstore.Fragments.HomeFragment;
 import com.za.awkwardstore.Fragments.TransaksiFragment;
 
-public class MainActivity extends AppCompatActivity
-{
+public class MainActivity extends AppCompatActivity /*implements Recyclerview_config.OnItemClickListener */{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+
+        //new Recyclerview_config().setOnItemClickListener(MainActivity.this);
     }
 
     @Override
@@ -52,4 +54,19 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
     };
+
+//    @Override
+//    public void onItemClick(int position) {
+//        Toast.makeText(this, "Normal Click at Position:" + position, Toast.LENGTH_SHORT).show();
+//    }
+//
+//    @Override
+//    public void onUpdateClick(int positiom) {
+//        Toast.makeText(this, "Update Click at Position:" + positiom, Toast.LENGTH_SHORT).show();
+//    }
+//
+//    @Override
+//    public void onDeleteClick(int position) {
+//        Toast.makeText(this, "Delete Click at position:" + position, Toast.LENGTH_SHORT).show();
+//    }
 }

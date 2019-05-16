@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.za.awkwardstore.FirebaseDatabaseHelper;
 import com.za.awkwardstore.NewProdukActivity;
+import com.za.awkwardstore.NewUpdateProdukActivity;
 import com.za.awkwardstore.Produk;
 import com.za.awkwardstore.R;
 import com.za.awkwardstore.Recyclerview_config;
@@ -25,7 +26,6 @@ public class HomeFragment extends Fragment implements Recyclerview_config.OnItem
 {
     View v;
     private RecyclerView recyclerView;
-    private Recyclerview_config recyclerviewConfig;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,10 +50,11 @@ public class HomeFragment extends Fragment implements Recyclerview_config.OnItem
 
         new FirebaseDatabaseHelper().readProduks(new FirebaseDatabaseHelper.DataStatus() {
             @Override
-            public void DataIsLoaded(List<Produk> produks, List<String> keys) {
-                new Recyclerview_config().setConfig(recyclerView,getContext(),
-                        produks, keys);
-                recyclerviewConfig.setOnItemClickListener(HomeFragment.this);
+            public void DataIsLoaded(List<Produk> produks, List<String> keys)
+            {
+                new Recyclerview_config().setConfig(recyclerView, getContext(),
+                        produks, keys, HomeFragment.this);
+
             }
 
             @Override
@@ -76,16 +77,16 @@ public class HomeFragment extends Fragment implements Recyclerview_config.OnItem
 
     @Override
     public void onItemClick(int position) {
-        Toast.makeText(this.getActivity(), "Normal Click at Position:" + position, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Normal Click at Position:" + position, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onUpdateClick(int positiom) {
-        Toast.makeText(this.getActivity(), "Update Click at Position:" + positiom, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Update Click at Position:" + positiom, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onDeleteClick(int position) {
-        Toast.makeText(this.getActivity(), "Delete Click at position:" + position, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Delete Click at position:" + position, Toast.LENGTH_SHORT).show();
     }
 }
