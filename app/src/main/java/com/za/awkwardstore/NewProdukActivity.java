@@ -11,6 +11,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
@@ -27,6 +28,7 @@ public class NewProdukActivity extends AppCompatActivity
     private Button addBtn;
 
     private ImageView mImageView;
+    private ProgressBar mProgressBar;
     private Uri mImageUri;
 
     @Override
@@ -40,6 +42,7 @@ public class NewProdukActivity extends AppCompatActivity
         addBtn = (Button)findViewById(R.id.Add_btn);
 
         mImageView = findViewById(R.id.image_view);
+        mProgressBar = findViewById(R.id.progressBar);
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -54,7 +57,8 @@ public class NewProdukActivity extends AppCompatActivity
                 Produk produk = new Produk();
                 produk.setName(namaProduk_edtTxt.getText().toString());
                 produk.setStok(stokProduk_edtTxt.getText().toString());
-                new FirebaseDatabaseHelper().addProduks(produk, new FirebaseDatabaseHelper.DataStatus() {
+                new FirebaseDatabaseHelper().addProduks(produk, new FirebaseDatabaseHelper.DataStatus()
+                {
                     @Override
                     public void DataIsLoaded(List<Produk> produks, List<String> keys) {
 
@@ -75,7 +79,7 @@ public class NewProdukActivity extends AppCompatActivity
                     public void DataIsDeleted() {
 
                     }
-                },getFileExtension(mImageUri),mImageUri);
+                },getFileExtension(mImageUri), mImageUri, mProgressBar);
             }
         });
     }

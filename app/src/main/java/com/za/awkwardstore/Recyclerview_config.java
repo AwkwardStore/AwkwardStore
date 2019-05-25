@@ -2,6 +2,7 @@ package com.za.awkwardstore;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,7 +22,7 @@ public class Recyclerview_config
 {
     private Context mContext;
     private ProduksAdapter mProdukAdapter;
-
+    public List<Produk> produk;
     private OnItemClickListener mListener;
 
     public void setConfig(RecyclerView recyclerView, Context context, List<Produk> produks, List<String> keys, OnItemClickListener listener)
@@ -31,6 +32,7 @@ public class Recyclerview_config
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(mProdukAdapter);
         mListener = listener;
+        this.produk = produks;
     }
 
     class ProdukItemView extends RecyclerView.ViewHolder implements View.OnClickListener,
@@ -40,7 +42,8 @@ public class Recyclerview_config
         private TextView stokText;
         private ImageView imageView;
 
-        private String key;
+        private String key,imageUrl;
+
 
         public ProdukItemView(ViewGroup parent)
         {
@@ -65,6 +68,24 @@ public class Recyclerview_config
                     i.putExtra("key",key);
                     i.putExtra("name",nameText.getText());
                     i.putExtra("stok",stokText.getText());
+                    i.putExtra("image",imageUrl);
+                    mContext.startActivity(i);
+                    mListener.onItemClick(position);
+                }
+            }
+        }
+
+        public void onUpdateClick(){
+            if (mListener != null)
+            {
+                int position = getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION)
+                {
+                    Intent i = new Intent(mContext,NewUpdateProdukActivity.class);
+                    i.putExtra("key",key);
+                    i.putExtra("name",nameText.getText());
+                    i.putExtra("stok",stokText.getText());
+                    i.putExtra("image",imageUrl);
                     mContext.startActivity(i);
                     mListener.onItemClick(position);
                 }
@@ -92,11 +113,12 @@ public class Recyclerview_config
                     switch (item.getItemId())
                     {
                         case 1:
-                            mListener.onUpdateClick(position);
+//                            mListener.onUpdateClick(position);
+                            onUpdateClick();
                             return true;
 
                         case 2:
-                            mListener.onDeleteClick(position);
+                            mListener.onDeleteClick(position,key,imageUrl);
                             return true;
                     }
                 }
@@ -110,6 +132,7 @@ public class Recyclerview_config
             stokText.setText(produk.getStok());
             Picasso.with(mContext).load(produk.getmImageurl()).resize(100, 100).centerCrop().into(imageView);
             this.key = key;
+            this.imageUrl = produk.getmImageurl();
         }
     }
     class ProduksAdapter extends RecyclerView.Adapter<ProdukItemView>
@@ -145,6 +168,6 @@ public class Recyclerview_config
 
         void onUpdateClick (int positiom);
 
-        void onDeleteClick (int position);
+        void onDeleteClick (int position,String key,String image);
     }
 }

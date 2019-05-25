@@ -82,11 +82,33 @@ public class HomeFragment extends Fragment implements Recyclerview_config.OnItem
 
     @Override
     public void onUpdateClick(int positiom) {
-        Toast.makeText(getActivity(), "Update Click at Position:" + positiom, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getActivity(), "Update Click at Position:" + positiom, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void onDeleteClick(int position) {
-        Toast.makeText(getActivity(), "Delete Click at position:" + position, Toast.LENGTH_SHORT).show();
+    public void onDeleteClick(int position,String key,String image) {
+//        Toast.makeText(getActivity(), "Delete Click at position:" + position, Toast.LENGTH_SHORT).show();
+        new FirebaseDatabaseHelper().deleteProduk(key, new FirebaseDatabaseHelper.DataStatus() {
+            @Override
+            public void DataIsLoaded(List<Produk> produks, List<String> keys) {
+
+            }
+
+            @Override
+            public void DataIsInserted() {
+
+            }
+
+            @Override
+            public void DataIsUpdated() {
+
+            }
+
+            @Override
+            public void DataIsDeleted() {
+                Toast.makeText(getContext(),"Data Kamu telah dihapus",Toast.LENGTH_SHORT).show();
+                return;
+            }
+        },image);
     }
 }
